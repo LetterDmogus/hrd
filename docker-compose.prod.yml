@@ -20,23 +20,24 @@ services:
     restart: always
     ports:
       - "3000:3000"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
     environment:
       NODE_ENV: production
-      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password_vps_utama_123@host.docker.internal:5432/hrd_analytics_db}
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password_vps_utama_123@global_postgres:5432/hrd_analytics_db}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379}
       PORT: 3000
       JWT_SECRET: ${JWT_SECRET:-your_secure_jwt_secret_key_production}
     depends_on:
       - redis
+    networks:
+      - default
+      - global_net
     deploy:
       resources:
         limits:
           cpus: '0.50'
           memory: 256M
 
-  # 4. Frontend Nginx Statis (Production - Hemat RAM)
+  # 3. Frontend Nginx Statis (Production - Hemat RAM)
   frontend:
     build:
       context: ./frontend
@@ -47,9 +48,16 @@ services:
       - "8081:80"
     depends_on:
       - backend
+    networks:
+      - default
     deploy:
       resources:
         limits:
           cpus: '0.25'
           memory: 64M
+
+networks:
+  global_net:
+    external: true
+    name: global_network
 

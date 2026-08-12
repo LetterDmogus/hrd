@@ -23,6 +23,12 @@ services:
       timeout: 5s
       retries: 10
       start_period: 10s
+    networks:
+      - global_net
+
+networks:
+  global_net:
+    name: global_network
 
 volumes:
   global_postgres_data:
