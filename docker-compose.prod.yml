@@ -1,0 +1,80 @@
+services:
+  # 1. Database PostgreSQL (Hemat RAM)
+  postgres:
+    image: postgres:15-alpine
+    container_name: hrd_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password_kamu}
+      POSTGRES_DB: ${POSTGRES_DB:-hrd_analytics_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-hrd_analytics_db}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 2. Redis (Cache internal)
+  redis:
+    image: redis:7-alpine
+    container_name: hrd_redis
+    restart: always
+    command: redis-server --maxmemory 64mb --maxmemory-policy allkeys-lru
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 64M
+
+  # 3. Backend Fastify (Production)
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    container_name: hrd_backend
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: ${DATABASE_URL:-postgresql://postgres:password_kamu@postgres:5432/hrd_analytics_db}
+      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET:-your_secure_jwt_secret_key_production}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+
+  # 4. Frontend Nginx Statis (Production - Hemat RAM)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+    container_name: hrd_frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 64M
+
+volumes:
+  postgres_data:

@@ -1,0 +1,144 @@
+{
+  "model_name": "IBM_Logistic_IDR_Adjusted_v1",
+  "algorithm": "LogisticRegression",
+  "total_features": 14,
+  "currency": "IDR",
+  "salary_range": "Rp 5.000.000 - Rp 50.000.000",
+  "metrics": {
+    "accuracy": 0.7483,
+    "roc_auc": 0.8282
+  },
+  "intercept": -0.5215,
+  "feature_cols": [
+    "Age",
+    "MonthlyIncomeIDR",
+    "PercentSalaryHike",
+    "is_overtime",
+    "is_male",
+    "marital_status_num",
+    "DistanceFromHome",
+    "job_satisfaction_num",
+    "env_satisfaction_num",
+    "worklife_num",
+    "YearsAtCompany",
+    "YearsSinceLastPromotion",
+    "YearsWithCurrManager",
+    "TrainingTimesLastYear"
+  ],
+  "feature_labels": {
+    "Age": "Usia Karyawan",
+    "MonthlyIncomeIDR": "Gaji Bulanan (Rp)",
+    "PercentSalaryHike": "Persentase Kenaikan Gaji (%)",
+    "is_overtime": "Kerja Lembur",
+    "is_male": "Jenis Kelamin (Laki-laki)",
+    "marital_status_num": "Status Pernikahan (Belum Menikah / Single)",
+    "DistanceFromHome": "Jarak Rumah Ke Kantor",
+    "job_satisfaction_num": "Kepuasan Kerja",
+    "env_satisfaction_num": "Kepuasan Lingkungan Kerja",
+    "worklife_num": "Work-Life Balance",
+    "YearsAtCompany": "Masa Kerja Di Perusahaan",
+    "YearsSinceLastPromotion": "Lama Sejak Promosi Terakhir",
+    "YearsWithCurrManager": "Masa Kerja Dengan Atasan Saat Ini",
+    "TrainingTimesLastYear": "Jumlah Pelatihan Tahun Lalu"
+  },
+  "feature_impacts": {
+    "Age": {
+      "label": "Usia Karyawan",
+      "coefficient": -0.3461,
+      "mean": 37.0,
+      "std": 9.17,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "MonthlyIncomeIDR": {
+      "label": "Gaji Bulanan (Rp)",
+      "coefficient": -0.3619,
+      "mean": 18116172.18,
+      "std": 11023139.58,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "PercentSalaryHike": {
+      "label": "Persentase Kenaikan Gaji (%)",
+      "coefficient": -0.138,
+      "mean": 15.24,
+      "std": 3.68,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "is_overtime": {
+      "label": "Kerja Lembur",
+      "coefficient": 0.6365,
+      "mean": 0.29,
+      "std": 0.45,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "is_male": {
+      "label": "Jenis Kelamin (Laki-laki)",
+      "coefficient": 0.1129,
+      "mean": 0.6,
+      "std": 0.49,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "marital_status_num": {
+      "label": "Status Pernikahan (Belum Menikah / Single)",
+      "coefficient": 0.4272,
+      "mean": 1.09,
+      "std": 0.73,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "DistanceFromHome": {
+      "label": "Jarak Rumah Ke Kantor",
+      "coefficient": 0.226,
+      "mean": 9.36,
+      "std": 8.18,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "job_satisfaction_num": {
+      "label": "Kepuasan Kerja",
+      "coefficient": -0.3573,
+      "mean": 2.72,
+      "std": 1.11,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "env_satisfaction_num": {
+      "label": "Kepuasan Lingkungan Kerja",
+      "coefficient": -0.4156,
+      "mean": 2.72,
+      "std": 1.09,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "worklife_num": {
+      "label": "Work-Life Balance",
+      "coefficient": -0.2313,
+      "mean": 2.76,
+      "std": 0.72,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "YearsAtCompany": {
+      "label": "Masa Kerja Di Perusahaan",
+      "coefficient": 0.0009,
+      "mean": 7.05,
+      "std": 6.08,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "YearsSinceLastPromotion": {
+      "label": "Lama Sejak Promosi Terakhir",
+      "coefficient": 0.4416,
+      "mean": 2.18,
+      "std": 3.21,
+      "risk_effect": "MENINGKATKAN RISIKO"
+    },
+    "YearsWithCurrManager": {
+      "label": "Masa Kerja Dengan Atasan Saat Ini",
+      "coefficient": -0.5949,
+      "mean": 4.2,
+      "std": 3.56,
+      "risk_effect": "MENURUNKAN RISIKO"
+    },
+    "TrainingTimesLastYear": {
+      "label": "Jumlah Pelatihan Tahun Lalu",
+      "coefficient": -0.0982,
+      "mean": 2.76,
+      "std": 1.26,
+      "risk_effect": "MENURUNKAN RISIKO"
+    }
+  }
+}
